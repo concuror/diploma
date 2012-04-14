@@ -19,12 +19,46 @@
     return self;
 }
 
--(NSInteger) matchConsecutiveChars:(NSString *)word inNode:(ATDPNode *)node {
-    
+-(NSInteger) matchConsecutiveChars:(NSString *)word inNode:(ATDPNode *)curNode {
+    return 0;
 }
 
--(void) insertWord:(NSString *)wordPart inNode:(ATDPNode *)node {
-    
+-(void) insertWord:(NSString *)wordPart inNode:(ATDPNode *)curNode {
+    NSInteger matches = [self matchConsecutiveChars:wordPart inNode:curNode];
+    if (
+        (matches == 0) || 
+        (curNode == _root) || 
+        ((matches > 0) && (matches == [curNode.label length]) && (matches < [wordPart length]))
+        ) {
+        BOOL inserted = NO;
+        NSString *newWordPart = [wordPart substringFromIndex:matches];
+        for (ATDPNode *child in curNode.subNodes) {
+            if ([child.label hasPrefix:[newWordPart substringToIndex:1]]) {
+                inserted = YES;
+                [self insertWord:newWordPart inNode:child];
+                break;
+            }
+        }
+        if ( ! inserted ) {
+            ATDPNode *tempNode = [[ATDPNode alloc] initWithLabel:newWordPart];
+            [curNode.subNodes addObject:tempNode];
+            [tempNode release];
+        }
+    }
+    else if (
+             (matches < [wordPart length]) &&
+             (matches < [curNode.label length])
+             ) {
+        NSString *newLabel1 = [wordPart substringFromIndex:matches];
+        NSString *newLabel2 = [curNode.label substringFromIndex:matches];
+        curNode.label = [curNode.label substringToIndex:matches];
+        ATDPNode *sibling1 = [[ATDPNode alloc] initWithLabel:newLabel1];
+        ATDPNode *sibling2 = [[ATDPNode alloc] initWithLabel:newLabel2];
+        sibling2.subNodes = curNode.subNodes;
+        curNode.subNodes = [[NSMutableArray alloc] initWithObjects:sibling1,sibling2, nil];
+        [sibling1 release];
+        [sibling2 release];
+    }
 }
 
 -(NSString *)findSuccessor:(NSString *)wordPart inNode:(ATDPNode *)node withCarry:(NSString *)carry {
@@ -35,12 +69,51 @@
     return nil;
 }
 
--(BOOL)lookupWord:(NSString *)wordPart inNode:(ATDPNode *)node {
-    return YES;
+-(BOOL)lookupWord:(NSString *)wordPart inNode:(ATDPNode *)curNode {
+    NSInteger matches = [self matchConsecutiveChars:wordPart inNode:curNode];
+    
+    if (
+        (curNode == _root) || 
+        ((matches > 0) && (matches == [curNode.label length]) && (matches < [wordPart length]))
+        ) {
+        NSString *newWordPart = [wordPart substringFromIndex:matches];
+        for (ATDPNode *child in curNode.subNodes) {
+            if ([child.label hasPrefix:[newWordPart substringToIndex:1]]) {
+                return [self lookupWord:newWordPart inNode:child];
+            }
+        }
+        return NO;
+    }
+    else if (matches == [curNode.label length]) {
+        return YES;
+    }
+    return NO;
 }
 
--(void) deleteWord:(NSString *)wordPart inNode:(ATDPNode *)node {
+-(void) deleteWord:(NSString *)wordPart inNode:(ATDPNode *)curNode {
+    NSInteger matches = [self matchConsecutiveChars:wordPart inNode:curNode];
     
+    if (
+        (curNode == _root) || 
+        ((matches > 0) && (matches == [curNode.label length]) && (matches < [wordPart length]))
+        ) {
+        NSString *newWordPart = [wordPart substringFromIndex:matches];
+        for (ATDPNode *child in curNode.subNodes) {
+            if ([child.label hasPrefix:[newWordPart substringToIndex:1]]) {
+                if ([newWordPart isEqualToString:child.label]) {
+                    if ([child.subNodes count] == 0) {
+                        [curNode.subNodes removeObject:child];
+                        return;
+                    }
+//                    else {
+//                        
+//                    }
+                }
+                [self deleteWord:newWordPart inNode:child];
+                break;
+            }
+        }
+    }
 }
 
 -(void) insertWord:(NSString *)word {
