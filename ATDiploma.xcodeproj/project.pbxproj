@@ -13,6 +13,8 @@
 		9ED3F653153998D500AE5ECC /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 9ED3F651153998D500AE5ECC /* Credits.rtf */; };
 		9ED3F656153998D500AE5ECC /* ATDAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ED3F655153998D500AE5ECC /* ATDAppDelegate.m */; };
 		9ED3F659153998D600AE5ECC /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ED3F657153998D600AE5ECC /* MainMenu.xib */; };
+		9ED3F66315399A4B00AE5ECC /* ATDPTrie.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ED3F66215399A4B00AE5ECC /* ATDPTrie.m */; };
+		9ED3F66615399B5A00AE5ECC /* ATDPNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ED3F66515399B5A00AE5ECC /* ATDPNode.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,14 +23,18 @@
 		9ED3F645153998D500AE5ECC /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		9ED3F646153998D500AE5ECC /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		9ED3F647153998D500AE5ECC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		9ED3F64A153998D500AE5ECC /* ATDiploma-Info.plist */ = {isa = PBXFileReference; path = "ATDiploma-Info.plist"; sourceTree = "<group>"; };
+		9ED3F64A153998D500AE5ECC /* ATDiploma-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ATDiploma-Info.plist"; sourceTree = "<group>"; };
 		9ED3F64C153998D500AE5ECC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		9ED3F64E153998D500AE5ECC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		9ED3F650153998D500AE5ECC /* ATDiploma-Prefix.pch */ = {isa = PBXFileReference; path = "ATDiploma-Prefix.pch"; sourceTree = "<group>"; };
+		9ED3F650153998D500AE5ECC /* ATDiploma-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ATDiploma-Prefix.pch"; sourceTree = "<group>"; };
 		9ED3F652153998D500AE5ECC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
-		9ED3F654153998D500AE5ECC /* ATDAppDelegate.h */ = {isa = PBXFileReference; path = ATDAppDelegate.h; sourceTree = "<group>"; };
+		9ED3F654153998D500AE5ECC /* ATDAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ATDAppDelegate.h; sourceTree = "<group>"; };
 		9ED3F655153998D500AE5ECC /* ATDAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ATDAppDelegate.m; sourceTree = "<group>"; };
 		9ED3F658153998D600AE5ECC /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		9ED3F66115399A4B00AE5ECC /* ATDPTrie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ATDPTrie.h; path = PATCIAtrie/ATDPTrie/ATDPTrie.h; sourceTree = "<group>"; };
+		9ED3F66215399A4B00AE5ECC /* ATDPTrie.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ATDPTrie.m; path = PATCIAtrie/ATDPTrie/ATDPTrie.m; sourceTree = "<group>"; };
+		9ED3F66415399B5A00AE5ECC /* ATDPNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ATDPNode.h; path = PATCIAtrie/ATDPTrie/ATDPNode.h; sourceTree = "<group>"; };
+		9ED3F66515399B5A00AE5ECC /* ATDPNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ATDPNode.m; path = PATCIAtrie/ATDPTrie/ATDPNode.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +88,7 @@
 		9ED3F648153998D500AE5ECC /* ATDiploma */ = {
 			isa = PBXGroup;
 			children = (
+				9ED3F65F153999E800AE5ECC /* PATRICIAtrie */,
 				9ED3F654153998D500AE5ECC /* ATDAppDelegate.h */,
 				9ED3F655153998D500AE5ECC /* ATDAppDelegate.m */,
 				9ED3F657153998D600AE5ECC /* MainMenu.xib */,
@@ -100,6 +107,25 @@
 				9ED3F651153998D500AE5ECC /* Credits.rtf */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		9ED3F65F153999E800AE5ECC /* PATRICIAtrie */ = {
+			isa = PBXGroup;
+			children = (
+				9ED3F66015399A0300AE5ECC /* ATDPTrie */,
+			);
+			name = PATRICIAtrie;
+			sourceTree = "<group>";
+		};
+		9ED3F66015399A0300AE5ECC /* ATDPTrie */ = {
+			isa = PBXGroup;
+			children = (
+				9ED3F66115399A4B00AE5ECC /* ATDPTrie.h */,
+				9ED3F66215399A4B00AE5ECC /* ATDPTrie.m */,
+				9ED3F66415399B5A00AE5ECC /* ATDPNode.h */,
+				9ED3F66515399B5A00AE5ECC /* ATDPNode.m */,
+			);
+			name = ATDPTrie;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -168,6 +194,8 @@
 			files = (
 				9ED3F64F153998D500AE5ECC /* main.m in Sources */,
 				9ED3F656153998D500AE5ECC /* ATDAppDelegate.m in Sources */,
+				9ED3F66315399A4B00AE5ECC /* ATDPTrie.m in Sources */,
+				9ED3F66615399B5A00AE5ECC /* ATDPNode.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -252,6 +280,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ATDiploma/ATDiploma-Prefix.pch";
 				INFOPLIST_FILE = "ATDiploma/ATDiploma-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -263,6 +292,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ATDiploma/ATDiploma-Prefix.pch";
 				INFOPLIST_FILE = "ATDiploma/ATDiploma-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
