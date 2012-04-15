@@ -20,7 +20,17 @@
 }
 
 -(NSInteger) matchConsecutiveChars:(NSString *)word inNode:(ATDPNode *)curNode {
-    return 0;
+    NSInteger matches = 0;
+    NSInteger minLength = MIN(curNode.label.length, word.length);
+    for (NSInteger i = 0; i < minLength; ++i) {
+        if ([word characterAtIndex:i] == [curNode.label characterAtIndex:i]) {
+            ++matches;
+        } 
+        else {
+            break;
+        }
+    }
+    return matches;
 }
 
 -(void) insertWord:(NSString *)wordPart inNode:(ATDPNode *)curNode {
