@@ -25,4 +25,8 @@
 
 -(void) deleteWord:(NSString *)label;
 
+-(void) addValue:(NSString *)value forKey:(NSString *)key;
+
+-(ATDPNode *)findNodeForKey:(NSString *)key;
+
 @end

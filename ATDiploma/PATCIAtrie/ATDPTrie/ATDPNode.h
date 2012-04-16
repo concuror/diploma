@@ -12,9 +12,13 @@
     
     NSString *label;
     
+    NSMutableArray *values;
+    
     NSMutableArray *subNodes;
     
 }
+
+@property (assign) NSMutableArray *values;
 
 @property (nonatomic, retain) NSString *label;
 

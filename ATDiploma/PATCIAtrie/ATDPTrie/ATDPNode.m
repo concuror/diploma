@@ -10,13 +10,14 @@
 
 @implementation ATDPNode
 
-@synthesize label, subNodes;
+@synthesize label, subNodes, values;
 
 -(id) init {
     self = [super init];
     if (self) {
         label = nil;
         subNodes = [[NSMutableArray alloc] init];
+        values = nil;
     }
     return self;
 }
@@ -25,7 +26,8 @@
     self = [super init];
     if (self) {
         self.label = lbl;
-        subNodes = [[NSMutableArray alloc] init];        
+        subNodes = [[NSMutableArray alloc] init];
+        values = nil;
     }
     return self;
 }
@@ -33,6 +35,7 @@
 -(void) dealloc {
     self.label = nil;
     [subNodes release];
+    [values release];
     [super dealloc];
 }
 

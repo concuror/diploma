@@ -115,15 +115,84 @@
                         [curNode.subNodes removeObject:child];
                         return;
                     }
-//                    else {
-//                        
-//                    }
+                    else {
+                        [child.values release];
+                        child.values = nil;
+                    }
                 }
                 [self deleteWord:newWordPart inNode:child];
                 break;
             }
         }
     }
+}
+
+-(void) addValue:(NSObject *)value forKey:(NSString *)key atNode:(ATDPNode *)curNode {
+    NSInteger matches = [self matchConsecutiveChars:key inNode:curNode];
+    if (
+        (matches == 0) || 
+        (curNode == _root) || 
+        ((matches > 0) && (matches == [curNode.label length]) && (matches < [key length]))
+        ) {
+        BOOL inserted = NO;
+        NSString *newWordPart = [key substringFromIndex:matches];
+        for (ATDPNode *child in curNode.subNodes) {
+            if ([child.label hasPrefix:[newWordPart substringToIndex:1]]) {
+                inserted = YES;
+                [self insertWord:newWordPart inNode:child];
+                break;
+            }
+        }
+        if ( ! inserted ) {
+            ATDPNode *tempNode = [[ATDPNode alloc] initWithLabel:newWordPart];
+            tempNode.values = [[NSMutableArray alloc] initWithObjects:value, nil];
+            [curNode.subNodes addObject:tempNode];
+            [tempNode release];
+        }
+    }
+    else if (
+             (matches < [key length]) &&
+             (matches < [curNode.label length])
+             ) {
+        NSString *newLabel1 = [key substringFromIndex:matches];
+        NSString *newLabel2 = [curNode.label substringFromIndex:matches];
+        curNode.label = [curNode.label substringToIndex:matches];
+        ATDPNode *sibling1 = [[ATDPNode alloc] initWithLabel:newLabel1];
+        ATDPNode *sibling2 = [[ATDPNode alloc] initWithLabel:newLabel2];
+        sibling2.subNodes = curNode.subNodes;
+        sibling2.values = curNode.values;
+        curNode.values = nil;
+        curNode.subNodes = [[NSMutableArray alloc] initWithObjects:sibling1,sibling2, nil];
+        [sibling1 release];
+        [sibling2 release];
+    }
+    else if (matches == [key length]) {
+        if (nil == curNode.values) {
+            curNode.values = [[NSMutableArray alloc] init];
+        }
+        [curNode.values addObject:value];
+    }
+}
+
+-(ATDPNode *)findNodeForKey:(NSString *)key atNode:(ATDPNode *)curNode {
+    NSInteger matches = [self matchConsecutiveChars:key inNode:curNode];
+    
+    if (
+        (curNode == _root) || 
+        ((matches > 0) && (matches == [curNode.label length]) && (matches < [key length]))
+        ) {
+        NSString *newWordPart = [key substringFromIndex:matches];
+        for (ATDPNode *child in curNode.subNodes) {
+            if ([child.label hasPrefix:[newWordPart substringToIndex:1]]) {
+                return [self findNodeForKey:newWordPart atNode:child];
+            }
+        }
+        return nil;
+    }
+    else if (matches == [curNode.label length]) {
+        return curNode;
+    }
+    return nil;
 }
 
 -(void) insertWord:(NSString *)word {
@@ -144,6 +213,14 @@
 
 -(void) deleteWord:(NSString *)label {
     [self deleteWord:label inNode:_root];
+}
+
+-(void) addValue:(NSObject *)value forKey:(NSString *)key {
+    [self addValue:value forKey:key atNode:_root];
+}
+
+-(ATDPNode *)findNodeForKey:(NSString *)key {
+    return [self findNodeForKey:key atNode:_root];
 }
 
 -(void) dealloc {
