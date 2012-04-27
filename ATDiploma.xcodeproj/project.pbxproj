@@ -26,6 +26,8 @@
 		9E31BAC0153B19720085A2E6 /* XPathQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPathQuery.m; sourceTree = "<group>"; };
 		9E31BAC4153B3B680085A2E6 /* ATDFileReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ATDFileReader.h; path = ADTFileReader/ATDFileReader.h; sourceTree = "<group>"; };
 		9E31BAC5153B3B680085A2E6 /* ATDFileReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ATDFileReader.m; path = ADTFileReader/ATDFileReader.m; sourceTree = "<group>"; };
+		9E920B1D154B03A0002DE072 /* ATDXMLParserDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ATDXMLParserDelegate.h; path = StreamCrawler/ATDXMLParserDelegate.h; sourceTree = "<group>"; };
+		9E920B1F154B2150002DE072 /* XMLHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XMLHelper.h; sourceTree = "<group>"; };
 		9EB373D415493F5000C903F3 /* ATDStreamAnalizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ATDStreamAnalizer.h; path = StreamCrawler/ATDStreamAnalizer.h; sourceTree = "<group>"; };
 		9EB373D515493F5000C903F3 /* ATDStreamAnalizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ATDStreamAnalizer.m; path = StreamCrawler/ATDStreamAnalizer.m; sourceTree = "<group>"; };
 		9EB373D71549402400C903F3 /* ATDStreamCrawler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ATDStreamCrawler.h; path = StreamCrawler/ATDStreamCrawler.h; sourceTree = "<group>"; };
@@ -86,6 +88,8 @@
 				9EB373D415493F5000C903F3 /* ATDStreamAnalizer.h */,
 				9EB373D515493F5000C903F3 /* ATDStreamAnalizer.m */,
 				9EB373D71549402400C903F3 /* ATDStreamCrawler.h */,
+				9E920B1D154B03A0002DE072 /* ATDXMLParserDelegate.h */,
+				9E920B1F154B2150002DE072 /* XMLHelper.h */,
 			);
 			name = StreamCrawler;
 			sourceTree = "<group>";

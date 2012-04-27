@@ -7,12 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <libxml/tree.h>
 #import "ATDStreamCrawler.h"
+#import "ATDXMLParserDelegate.h"
+#include "XMLHelper.h"
 
 @interface ATDStreamAnalizer : NSObject<ATDStreamCrawler> {
     
     xmlParserCtxtPtr context;
+    
+    id<ATDXMLParserDelegate> _delegate;
     
 }
 

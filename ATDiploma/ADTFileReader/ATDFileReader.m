@@ -7,6 +7,7 @@
 //
 
 #import "ATDFileReader.h"
+#import "ATDStreamAnalizer.h"
 
 @implementation ATDFileReader
 
@@ -22,7 +23,21 @@
 }
 
 +(void) crawlXMLAtPath:(NSString *)fileName forIndexer:(id)indexer {
-    
+    static const NSUInteger length = 1024;
+    ATDStreamAnalizer *analizer = [[ATDStreamAnalizer alloc] init];
+    NSFileHandle *file = [NSFileHandle fileHandleForReadingAtPath:fileName];
+    if (nil == file) {
+        NSLog(@"Could not open file");
+        return;
+    }
+    NSData *dataChunk;
+    NSUInteger offset = 0;
+    do {
+        [file seekToFileOffset:offset];
+        dataChunk = [file readDataOfLength:length];
+        [analizer gotData:dataChunk formStream:file];
+        offset += length;
+    } while (dataChunk);    
 }
 
 @end
