@@ -7,7 +7,6 @@
 //
 
 #import "ATDFileReader.h"
-#import <libxml/tree.h>
 
 @implementation ATDFileReader
 
@@ -23,7 +22,7 @@
 }
 
 +(void) crawlXMLAtPath:(NSString *)fileName forIndexer:(id)indexer {
-    xmlParserCtxtPtr context = xmlCreatePushParserCtxt(nil, self, NULL, 0, NULL);
+    
 }
 
 @end

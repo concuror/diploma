@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		9E31BAC1153B19720085A2E6 /* XPathQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E31BAC0153B19720085A2E6 /* XPathQuery.m */; };
 		9E31BAC6153B3B680085A2E6 /* ATDFileReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E31BAC5153B3B680085A2E6 /* ATDFileReader.m */; };
+		9EB373D615493F5000C903F3 /* ATDStreamAnalizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EB373D515493F5000C903F3 /* ATDStreamAnalizer.m */; };
 		9EC02119153AF4B600213A50 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EC02118153AF4B600213A50 /* libxml2.dylib */; };
 		9ED3F643153998D500AE5ECC /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9ED3F642153998D500AE5ECC /* Cocoa.framework */; };
 		9ED3F64D153998D500AE5ECC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9ED3F64B153998D500AE5ECC /* InfoPlist.strings */; };
@@ -25,6 +26,9 @@
 		9E31BAC0153B19720085A2E6 /* XPathQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPathQuery.m; sourceTree = "<group>"; };
 		9E31BAC4153B3B680085A2E6 /* ATDFileReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ATDFileReader.h; path = ADTFileReader/ATDFileReader.h; sourceTree = "<group>"; };
 		9E31BAC5153B3B680085A2E6 /* ATDFileReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ATDFileReader.m; path = ADTFileReader/ATDFileReader.m; sourceTree = "<group>"; };
+		9EB373D415493F5000C903F3 /* ATDStreamAnalizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ATDStreamAnalizer.h; path = StreamCrawler/ATDStreamAnalizer.h; sourceTree = "<group>"; };
+		9EB373D515493F5000C903F3 /* ATDStreamAnalizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ATDStreamAnalizer.m; path = StreamCrawler/ATDStreamAnalizer.m; sourceTree = "<group>"; };
+		9EB373D71549402400C903F3 /* ATDStreamCrawler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ATDStreamCrawler.h; path = StreamCrawler/ATDStreamCrawler.h; sourceTree = "<group>"; };
 		9EC02118153AF4B600213A50 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		9ED3F63E153998D500AE5ECC /* ATDiploma.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ATDiploma.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9ED3F642153998D500AE5ECC /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
@@ -74,6 +78,16 @@
 				9E31BAC5153B3B680085A2E6 /* ATDFileReader.m */,
 			);
 			name = ATDPFileReader;
+			sourceTree = "<group>";
+		};
+		9EB373D215493F1500C903F3 /* StreamCrawler */ = {
+			isa = PBXGroup;
+			children = (
+				9EB373D415493F5000C903F3 /* ATDStreamAnalizer.h */,
+				9EB373D515493F5000C903F3 /* ATDStreamAnalizer.m */,
+				9EB373D71549402400C903F3 /* ATDStreamCrawler.h */,
+			);
+			name = StreamCrawler;
 			sourceTree = "<group>";
 		};
 		9ED3F633153998D500AE5ECC = {
@@ -140,6 +154,7 @@
 		9ED3F65F153999E800AE5ECC /* PATRICIAtrie */ = {
 			isa = PBXGroup;
 			children = (
+				9EB373D215493F1500C903F3 /* StreamCrawler */,
 				9E31BAC3153B3B210085A2E6 /* ATDPFileReader */,
 				9E31BABE153B19720085A2E6 /* XPathQuery */,
 				9ED3F66015399A0300AE5ECC /* ATDPTrie */,
@@ -229,6 +244,7 @@
 				9ED3F66615399B5A00AE5ECC /* ATDPNode.m in Sources */,
 				9E31BAC1153B19720085A2E6 /* XPathQuery.m in Sources */,
 				9E31BAC6153B3B680085A2E6 /* ATDFileReader.m in Sources */,
+				9EB373D615493F5000C903F3 /* ATDStreamAnalizer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
