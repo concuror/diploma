@@ -11,17 +11,17 @@
 
 @protocol ATDXMLParserDelegate <NSObject>
 
-- (void)parserDidEndDocument:(NSXMLParser *)parser;
+- (void)elementFound:(const xmlChar *)localname prefix:(const xmlChar *)prefix 
+                 uri:(const xmlChar *)URI namespaceCount:(int)namespaceCount
+          namespaces:(const xmlChar **)namespaces attributeCount:(int)attributeCount 
+defaultAttributeCount:(int)defaultAttributeCount attributes:(xmlSAX2Attributes *)attributes;
 
-- (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName
-  namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
-    attributes:(NSDictionary *)attributeDict;
+- (void)endElement:(const xmlChar *)localname prefix:(const xmlChar *)prefix uri:(const xmlChar *)URI;
 
-- (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string;
+- (void)charactersFound:(const xmlChar *)characters length:(int)length;
 
-- (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName
-  namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName;
+- (void)parsingError:(const char *)msg, ...;
 
--(void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError;
+- (void)endDocument;
 
 @end

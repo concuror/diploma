@@ -26,4 +26,6 @@
 
 -(id) initWithLabel:(NSString *)label;
 
+-(NSUInteger) getNodeSize;
+
 @end

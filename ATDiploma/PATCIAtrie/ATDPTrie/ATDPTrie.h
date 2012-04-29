@@ -33,4 +33,6 @@
 
 -(void) loadFromFile:(NSString *)fileName;
 
+-(NSUInteger) getTreeSize;
+
 @end

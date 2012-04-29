@@ -7,11 +7,11 @@
 //
 
 #import <Cocoa/Cocoa.h>
-@class ATDPTrie;
+@class ATDIndexer;
 
 @interface ATDAppDelegate : NSObject <NSApplicationDelegate> {
     
-    ATDPTrie *indexTrie;
+    ATDIndexer *index;
     
 }
 
@@ -21,10 +21,20 @@
 
 @property (assign) IBOutlet NSTextField *textField;
 
+@property (assign) IBOutlet NSTextField *valueField;
+
+@property (assign) IBOutlet NSTextField *resultsField;
+
+@property (assign) IBOutlet NSTextField *statisticsField;
+
 -(IBAction)addNode:(id)sender;
 
 -(IBAction)removeNode:(id)sender;
 
 -(IBAction)checkWord:(id)sender;
+
+-(IBAction)saveTrie:(id)sender;
+
+-(IBAction)loadTrie:(id)sender;
 
 @end

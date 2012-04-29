@@ -16,21 +16,26 @@
     self = [super init];
     if (self) {
         _delegate = delegate;
-        context = xmlCreatePushParserCtxt(&simpleSAXHandlerStruct, _delegate, NULL, 0, NULL);
+        context = xmlCreatePushParserCtxt(&simpleSAXHandlerStruct, self, NULL, 0, NULL);
     }
     return self;
 }
 
--(void)gotData:(NSData *)data formStream:(id)StreamHandler atOffset:(NSUInteger)offset {
-    
+-(void)gotData:(NSData *)data formStream:(id)StreamHandler{
+    xmlParseChunk(context, (char *)[data bytes], [data length], 0);
 }
+
+-(void)closedStream:(id)streamHandler {
+    xmlParseChunk(context, NULL, 0, 1);
+}
+
 
 #pragma mark SAX Parsing Callbacks
 
 static void startElementSAX(void *ctx, const xmlChar *localname, const xmlChar *prefix,
                             const xmlChar *URI, int nb_namespaces, const xmlChar **namespaces,
                             int nb_attributes, int nb_defaulted, const xmlChar **attributes) {
-    [((id<ATDXMLParserDelegate>) ctx) elementFound:localname prefix:prefix uri:URI 
+    [((ATDStreamAnalizer *) ctx).delegate elementFound:localname prefix:prefix uri:URI 
                              namespaceCount:nb_namespaces namespaces:namespaces
                              attributeCount:nb_attributes defaultAttributeCount:nb_defaulted
                                  attributes:(xmlSAX2Attributes*)attributes];
@@ -38,21 +43,21 @@ static void startElementSAX(void *ctx, const xmlChar *localname, const xmlChar *
 
 static void	endElementSAX(void *ctx, const xmlChar *localname, const xmlChar *prefix,
                           const xmlChar *URI) {    
-    [((id<ATDXMLParserDelegate>)ctx) endElement:localname prefix:prefix uri:URI];
+    [((ATDStreamAnalizer *) ctx).delegate endElement:localname prefix:prefix uri:URI];
 }
 
 static void	charactersFoundSAX(void *ctx, const xmlChar *ch, int len) {
-    [((id<ATDXMLParserDelegate>)ctx) charactersFound:ch length:len];
+    [((ATDStreamAnalizer *) ctx).delegate charactersFound:ch length:len];
 }
 
 static void errorEncounteredSAX(void *ctx, const char *msg, ...) {
     va_list argList;
     va_start(argList, msg);
-    [((id<ATDXMLParserDelegate>)ctx) parsingError:msg, argList];
+    [((ATDStreamAnalizer *) ctx).delegate parsingError:msg, argList];
 }
 
 static void endDocumentSAX(void *ctx) {
-    [((id<ATDXMLParserDelegate>)ctx) endDocument];
+    [((ATDStreamAnalizer *) ctx).delegate endDocument];
 }
 
 

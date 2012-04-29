@@ -20,38 +20,31 @@
     return self;
 }
 
-- (void)parserDidEndDocument:(NSXMLParser *)parser {
-    
-}
-
-- (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName
-  namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
-    attributes:(NSDictionary *)attributeDict {
-    if(nil != qName) {
-        elementName = qName; // swap for the qName if we have a name space
-    }
-    NSString *str;
+- (void)elementFound:(const xmlChar *)localname prefix:(const xmlChar *)prefix 
+                 uri:(const xmlChar *)URI namespaceCount:(int)namespaceCount
+          namespaces:(const xmlChar **)namespaces attributeCount:(int)attributeCount 
+defaultAttributeCount:(int)defaultAttributeCount attributes:(xmlSAX2Attributes *)attributes {
+    NSString *elementName = [NSString stringWithCString:(const char *)localname encoding:NSUTF8StringEncoding];
     if ([elementName isEqualToString:self.elementName]) {
         tmpString = [[NSMutableString alloc] init];
+        return;
     }
-    else if (( str = [attributeDict valueForKey:self.elementName]) ) {
-        NSDictionary *dictionary = [[NSDictionary alloc] initWithObjectsAndKeys:[NSNumber numberWithInt:_currOffset],@"offset",_currFileName,@"filename", nil];
-        [_structure addValue:dictionary forKey:str];
+    for(int j = 0; j < attributeCount; j++) {
+        if(0 == strncmp((const char*)attributes[j].localname, [self.elementName cStringUsingEncoding:NSUTF8StringEncoding],
+                        [_elementName length])) {
+            int urlLength = (int) (attributes[j].end - attributes[j].value);
+            NSString *str = [[NSString alloc] initWithBytes:attributes[j].value
+                                                     length:urlLength
+                                                   encoding:NSUTF8StringEncoding];
+            NSDictionary *dictionary = [[NSDictionary alloc] initWithObjectsAndKeys:[NSNumber numberWithInt:_currOffset],@"offset",_currFileName,@"filename", nil];
+            [_structure addValue:dictionary forKey:str];
+            break;
+        }
     }
 }
 
-- (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string {
-    if (tmpString) {
-        [tmpString appendString:string];
-    }
-}
-
-- (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName
-  namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName {
-    if (qName) {
-        elementName = qName; // switch for the qName
-    }
-    if (tmpString) {
+- (void)endElement:(const xmlChar *)localname prefix:(const xmlChar *)prefix uri:(const xmlChar *)URI {
+    if (tmpString && (0 == strncmp((const char *)localname,[_elementName cStringUsingEncoding:NSUTF8StringEncoding],[_elementName length]))) {
         NSDictionary *dictionary = [[NSDictionary alloc] initWithObjectsAndKeys:[NSNumber numberWithInt:_currOffset],@"offset",_currFileName,@"filename", nil];
         [_structure addValue:dictionary forKey:tmpString];
         [tmpString release];
@@ -59,8 +52,40 @@
     }
 }
 
-- (void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError {
-    NSLog(@"parser error %@, userInfo %@", parseError, [parseError userInfo]);
+- (void)charactersFound:(const xmlChar *)characters length:(int)length {
+    if (tmpString) {
+        NSString *value = [[NSString alloc] initWithBytes:(const void *)characters
+                                                               length:length encoding:NSUTF8StringEncoding];
+        [tmpString appendString:value];
+        [value release];
+    }
+}
+
+- (void)parsingError:(const char *)msg, ... {
+    NSString *format = [[NSString alloc] initWithBytes:msg length:strlen(msg)
+                                              encoding:NSUTF8StringEncoding];
+    
+    CFStringRef resultString = NULL;
+    va_list argList;
+    va_start(argList, msg);
+    resultString = CFStringCreateWithFormatAndArguments(NULL, NULL,
+                                                        (CFStringRef)format,
+                                                        argList);
+    va_end(argList);
+    
+    NSDictionary *userInfo = [NSDictionary dictionaryWithObject:(NSString*)resultString
+                                                         forKey:@"error_message"];
+    NSError *error = [NSError errorWithDomain:@"ParsingDomain"
+                                         code:101
+                                     userInfo:userInfo];
+    NSLog(@"parser error %@, userInfo %@", error, [error userInfo]);
+    
+    [(NSString*)resultString release];
+    [format release];
+}
+
+-(void)endDocument {
+    
 }
 
 -(void) dealloc {

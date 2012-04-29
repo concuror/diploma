@@ -139,7 +139,7 @@
         for (ATDPNode *child in curNode.subNodes) {
             if ([child.label hasPrefix:[newWordPart substringToIndex:1]]) {
                 inserted = YES;
-                [self insertWord:newWordPart inNode:child];
+                [self addValue:value forKey:newWordPart atNode:child];
                 break;
             }
         }
@@ -242,6 +242,10 @@
 
 -(void) loadFromFile:(NSString *)fileName {
     _root = [[NSKeyedUnarchiver unarchiveObjectWithFile:fileName] retain];
+}
+
+-(NSUInteger) getTreeSize {
+    return [_root getNodeSize];
 }
 
 -(void) dealloc {

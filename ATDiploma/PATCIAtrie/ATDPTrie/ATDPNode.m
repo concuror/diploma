@@ -34,6 +34,7 @@
 
 -(void)encodeWithCoder:(NSCoder *)aCoder {
     [aCoder encodeObject:label forKey:@"label"];
+    [aCoder encodeObject:values forKey:@"values"];
     [aCoder encodeObject:subNodes forKey:@"subNodes"];
 }
 
@@ -41,6 +42,7 @@
     self = [super init];
     if (self) {
         label = [[aDecoder decodeObjectForKey:@"label"] retain];
+        values = [[aDecoder decodeObjectForKey:@"values"] retain];
         subNodes = [[aDecoder decodeObjectForKey:@"subNodes"] retain];
     }
     return self;
@@ -48,6 +50,15 @@
 
 -(NSComparisonResult) compare:(ATDPNode *)theNode {
     return [self.label compare:theNode.label];
+}
+
+-(NSUInteger)getNodeSize {
+    NSUInteger returns = 0;
+    for (ATDPNode *nd in subNodes) {
+        returns += [nd getNodeSize];
+    }
+    returns += [subNodes count];
+    return returns;
 }
 
 -(void) dealloc {
