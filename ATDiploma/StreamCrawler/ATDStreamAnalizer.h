@@ -19,5 +19,9 @@
     
 }
 
+-(id)initWithDelegate:(id<ATDXMLParserDelegate>)delegate;
+
+@property(assign) id<ATDXMLParserDelegate> delegate;
+
 
 @end

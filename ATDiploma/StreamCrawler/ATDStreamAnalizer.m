@@ -10,6 +10,7 @@
 #import "ATDStreamAnalizer.h"
 
 @implementation ATDStreamAnalizer
+@synthesize delegate = _delegate;
 
 -(id)initWithDelegate:(id<ATDXMLParserDelegate>)delegate {
     self = [super init];
@@ -18,6 +19,10 @@
         context = xmlCreatePushParserCtxt(&simpleSAXHandlerStruct, _delegate, NULL, 0, NULL);
     }
     return self;
+}
+
+-(void)gotData:(NSData *)data formStream:(id)StreamHandler atOffset:(NSUInteger)offset {
+    
 }
 
 #pragma mark SAX Parsing Callbacks

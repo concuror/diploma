@@ -32,6 +32,24 @@
     return self;
 }
 
+-(void)encodeWithCoder:(NSCoder *)aCoder {
+    [aCoder encodeObject:label forKey:@"label"];
+    [aCoder encodeObject:subNodes forKey:@"subNodes"];
+}
+
+-(id)initWithCoder:(NSCoder *)aDecoder{
+    self = [super init];
+    if (self) {
+        label = [[aDecoder decodeObjectForKey:@"label"] retain];
+        subNodes = [[aDecoder decodeObjectForKey:@"subNodes"] retain];
+    }
+    return self;
+}
+
+-(NSComparisonResult) compare:(ATDPNode *)theNode {
+    return [self.label compare:theNode.label];
+}
+
 -(void) dealloc {
     self.label = nil;
     [subNodes release];

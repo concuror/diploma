@@ -223,6 +223,27 @@
     return [self findNodeForKey:key atNode:_root];
 }
 
+-(void) encodeWithCoder:(NSCoder *)aCoder {
+    [aCoder encodeObject:_root forKey:@"rootNode"];
+}
+
+-(id) initWithCoder:(NSCoder *)aDecoder {
+    self = [super init];
+    if (self) {
+        _root = [[aDecoder decodeObjectForKey:@"rootNode"] retain];
+    }
+    return self;
+}
+
+-(void) saveTrieToFile:(NSString *)fileName {
+    BOOL test = [NSKeyedArchiver archiveRootObject:_root toFile:fileName];
+    NSLog(@"Saved succesfully: %d",test);
+}
+
+-(void) loadFromFile:(NSString *)fileName {
+    _root = [[NSKeyedUnarchiver unarchiveObjectWithFile:fileName] retain];
+}
+
 -(void) dealloc {
     [_root release];
     [super dealloc];

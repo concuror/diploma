@@ -31,13 +31,18 @@
         return;
     }
     NSData *dataChunk;
+    [file seekToEndOfFile];
+    NSUInteger lengthOfFile = [file offsetInFile];
     NSUInteger offset = 0;
-    do {
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    while (offset < lengthOfFile) {
         [file seekToFileOffset:offset];
         dataChunk = [file readDataOfLength:length];
         [analizer gotData:dataChunk formStream:file];
         offset += length;
-    } while (dataChunk);    
+        [pool drain];
+    }
+    [pool release];
 }
 
 @end
