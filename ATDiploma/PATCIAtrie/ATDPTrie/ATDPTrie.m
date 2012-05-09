@@ -140,6 +140,7 @@
             if ([child.label hasPrefix:[newWordPart substringToIndex:1]]) {
                 inserted = YES;
                 [self addValue:value forKey:newWordPart atNode:child];
+                //NSLog(@"%@",value);
                 break;
             }
         }
@@ -171,6 +172,7 @@
             curNode.values = [[NSMutableArray alloc] init];
         }
         [curNode.values addObject:value];
+        //NSLog(@"%@",value);
     }
 }
 

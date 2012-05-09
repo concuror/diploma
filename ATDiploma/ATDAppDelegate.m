@@ -53,7 +53,11 @@
 }
 
 -(IBAction)checkWord:(id)sender {
-    
+    NSDate *tmp = [[NSDate alloc] init];
+    [index.structure findNodeForKey:self.valueField.stringValue];
+    NSTimeInterval time = -1*[tmp timeIntervalSinceNow];
+    NSString *resString = [NSString stringWithFormat:@"LookUp time: %f\nIndex size: %d",time,[index.structure getTreeSize]];
+    self.statisticsField.stringValue = resString;
 }
 
 -(IBAction)saveTrie:(id)sender {
